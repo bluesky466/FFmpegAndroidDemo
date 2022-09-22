@@ -1,0 +1,14 @@
+prefix=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/armeabi-v7a
+exec_prefix=${prefix}
+libdir=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/armeabi-v7a/lib
+includedir=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/armeabi-v7a/include
+
+Name: libswscale
+Description: FFmpeg image rescaling library
+Version: 5.9.100
+Requires: 
+Requires.private: libavutil >= 56.70.100
+Conflicts:
+Libs: -L${libdir}  -lswscale 
+Libs.private: -lm
+Cflags: -I${includedir}

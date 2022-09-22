@@ -1,0 +1,14 @@
+prefix=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/armeabi-v7a
+exec_prefix=${prefix}
+libdir=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/armeabi-v7a/lib
+includedir=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/armeabi-v7a/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 58.134.100
+Requires: 
+Requires.private: libswresample >= 3.9.100, libavutil >= 56.70.100
+Conflicts:
+Libs: -L${libdir}  -lavcodec 
+Libs.private: -pthread -lm -lz
+Cflags: -I${includedir}

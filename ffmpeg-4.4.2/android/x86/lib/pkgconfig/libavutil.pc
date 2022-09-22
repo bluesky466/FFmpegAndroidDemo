@@ -1,0 +1,14 @@
+prefix=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/x86
+exec_prefix=${prefix}
+libdir=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/x86/lib
+includedir=/Users/linjw/workspace/JniDemo/ffmpeg-4.4.2/android/x86/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 56.70.100
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil 
+Libs.private: -pthread -lm
+Cflags: -I${includedir}
