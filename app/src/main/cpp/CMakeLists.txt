@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.18.1)
 
 project("ffmpegdemo")
 
-add_library(ffmpegdemo SHARED ffmpeg_demo.cpp video_sender.cpp opengl_display.cpp egl_helper.cpp video_decoder.cpp)
+add_library(ffmpegdemo SHARED ffmpeg_demo.cpp opengl_display.cpp egl_helper.cpp media_reader.cpp opensl_helper.cpp stream_decoder.cpp)
 
 find_library(log-lib log)
 
@@ -37,6 +37,8 @@ target_link_libraries(
         EGL
         GLESv2
         android
+
+        OpenSLES
 
         # FFmpeg libs
         avcodec

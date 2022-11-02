@@ -1,3 +1,6 @@
+#ifndef __VIDEO_DISPLAY_H__
+#define __VIDEO_DISPLAY_H__
+
 #include <jni.h>
 #include <string>
 #include <GLES2/gl2.h>
@@ -42,3 +45,4 @@ private:
     );
 };
 
+#endif
