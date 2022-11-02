@@ -1,10 +1,10 @@
 #include <jni.h>
 #include <android/native_window_jni.h>
+
 #include "opengl_display.h"
 #include "common.h"
 
 using namespace std;
-
 
 static const string VERTICES_SHADER = "attribute vec2 aPosition;\n"
                                       "attribute vec2 aCoord;\n"

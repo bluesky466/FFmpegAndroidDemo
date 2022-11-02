@@ -1,3 +1,7 @@
+#ifndef __EGL_HELPER_H__
+#define __EGL_HELPER_H__
+
+
 #include <jni.h>
 #include <EGL/egl.h>
 
@@ -14,3 +18,4 @@ struct EGLHelper {
     EGLSurface surface;
 };
 
+#endif

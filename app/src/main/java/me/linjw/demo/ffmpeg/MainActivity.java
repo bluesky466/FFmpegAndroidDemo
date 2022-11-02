@@ -1,15 +1,13 @@
 package me.linjw.demo.ffmpeg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.SurfaceTexture;
-import android.opengl.EGL14;
-import android.opengl.GLES20;
 import android.os.Bundle;
 import android.os.FileUtils;
 import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("ffmpegdemo");
     }
 
-    //需要自己搭建rtmp服务器
-    private static final String SERVER_IP = XXX.XXX.XXX.XXX;
-
     private ActivityMainBinding binding;
     private TextureView mPreview;
 
@@ -35,33 +30,22 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        File file = new File(getFilesDir(), "video.flv");
-
+        File file = new File(getFilesDir(), "media.mp4");
         try {
-            InputStream is = getAssets().open("video.flv");
+            InputStream is = getAssets().open("media.mp4");
             OutputStream os = new FileOutputStream(file);
             FileUtils.copy(is, os);
         } catch (Exception e) {
             Log.d("FFmpegDemo", "err", e);
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                send(file.getAbsolutePath(), "rtmp://" + SERVER_IP + "/live/livestream");
-            }
-        }).start();
-
         mPreview = findViewById(R.id.preview);
         mPreview.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(final SurfaceTexture surface, final int width, final int height) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        play("rtmp://" + SERVER_IP + "/live/livestream", new Surface(surface), width, height);
-                    }
-                }).start();
+                long mediaPtr = load(file.getAbsolutePath());
+                new Thread(() -> playAudio(mediaPtr)).start();
+                new Thread(() -> playVideo(mediaPtr, new Surface(surface), width, height)).start();
             }
 
             @Override
@@ -79,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
-    public native void send(String srcFile, String destUrl);
-
-    public native void play(String url, Surface surface, int width, int height);
+    public native long load(String url);
+    public native void release(long mediaPtr);
+    public native void playVideo(long mediaPtr, Surface surface, int width, int height);
+    public native void playAudio(long mediaPtr);
 }
